@@ -95,8 +95,6 @@ function onBlueDown () {
     blueButton.alpha = 0.3;
 }
 function onBlueUp () {
-  console.log('blue button up');
-  console.log('myturn:', myTurn);
     blueButton.alpha = 1;
     if (myTurn === true) {
     pushToPlayerArr("b");
@@ -116,7 +114,6 @@ function onRedUp () {
     checkEquality();
 }
 function onGreenDown () {
-  console.trace('green down');
     greenAudio.play();
     greenButton.alpha = 0.3;
 }
@@ -139,7 +136,6 @@ function onYellowUp () {
     checkEquality();
 }
 function onStartButtonDown () {
-  console.log('onstartbuttondown');
     turnNumber = 0;
     increaseTurnNumber();
 }
@@ -156,12 +152,10 @@ function onResetButtonDown () {
 
 }
 function onResetButtonUp () {
-  console.log('reset button up');
-turnNumber = 0;
+    turnNumber = 0;
     increaseTurnNumber();
 }
 function increaseTurnNumber () {
-  console.log('increase turn number:', turnNumber);
 turnNumber = turnNumber + 1;
 switch (turnNumber) {
     case 0: counter.destroy();
@@ -273,7 +267,6 @@ function compsTurn () {
                 break;
         }
     });
-    console.log(comp.moves);
 }
 function pushToPlayerArr (color) {
     player.moves.push(color);
