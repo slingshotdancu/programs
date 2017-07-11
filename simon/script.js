@@ -247,30 +247,33 @@ function compsTurn () {
                 setTimeout(function() {
                     onRedDown();
                     onRedUp();
+                    myTurn = true;
                 }, 1000);
                 break;
             case "b":
                 setTimeout(function() {
-                onBlueDown();
-                onBlueUp();
+                    onBlueDown();
+                    onBlueUp();
+                    myTurn = true;
                 }, 1000);
                 break;
             case "y":
                 setTimeout(function() {
-                onYellowDown();
-                onYellowUp();
+                    onYellowDown();
+                    onYellowUp();
+                    myTurn = true;
                 }, 1000);
                 break;
             case "g":
                 setTimeout(function() {
-                onGreenDown();
-                onGreenUp();
+                    onGreenDown();
+                    onGreenUp();
+                    myTurn = true;
                 }, 1000);
                 break;
         }
     });
     console.log(comp.moves);
-    myTurn = true;
 }
 function pushToPlayerArr (color) {
     player.moves.push(color);
