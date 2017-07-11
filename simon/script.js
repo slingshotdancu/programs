@@ -4,7 +4,7 @@ let player = {};
 player.moves = [];
 let comp = {};
 comp.moves = [];
-let counter, turnNumber, compNumber;
+let counter, turnNumber, compNumber, myTurn;
 let blueButton, greenButton, redButton, yellowButton;
 let blueAudio, greenAudio, redAudio, yellowAudio;
 let startButton, strictModeButton, resetButton;
@@ -96,7 +96,9 @@ function onBlueDown () {
 }
 function onBlueUp () {
     blueButton.alpha = 1;
+    if (myTurn === true) {
     pushToPlayerArr("b");
+    }
     checkEquality();
     
 }
@@ -106,7 +108,9 @@ function onRedDown () {
 }
 function onRedUp () {
     redButton.alpha = 1;
+    if (myTurn === true) {
     pushToPlayerArr("r");
+    }
     checkEquality();
 }
 function onGreenDown () {
@@ -115,7 +119,9 @@ function onGreenDown () {
 }
 function onGreenUp () {
     greenButton.alpha = 1;
+    if (myTurn === true) {
     pushToPlayerArr("g");
+    }
     checkEquality();
 }
 function onYellowDown () {
@@ -124,10 +130,13 @@ function onYellowDown () {
 }
 function onYellowUp () {
     yellowButton.alpha = 1;
+    if (myTurn === true) {
     pushToPlayerArr("y");
+    }
     checkEquality();
 }
 function onStartButtonDown () {
+    turnNumber = 0;
     increaseTurnNumber();
 }
 function onStartButtonUp () {
@@ -197,22 +206,62 @@ function getRandomNumber () {
 function compsTurn () {
     //generates a num 1-4 and assigns it to compNum for later identification when pushing elements for the color rep'd by this num
     let compColor;
+    myTurn = false;
     compNumber = getRandomNumber();
-    switch (compNumber) {
+        switch (compNumber) {
         case 1: compColor = "g";
             pushToCompArr(compColor);
             break;
         case 2: compColor ="r";
             pushToCompArr(compColor);
+            setTimeout(function() {
+                onRedDown();
+                onRedUp(); }, 1000);
             break;
         case 3: compColor ="y";
             pushToCompArr(compColor);
+            setTimeout(function() {
+                onYellowDown();
+                onYellowUp(); }, 1000);
             break;
         case 4: compColor ="b";
             pushToCompArr(compColor);
+            setTimeout(function() {
+            onBlueDown();
+            onBlueUp(); }, 1000);
             break;
     }
-
+    alert("compsTurn ran");
+    comp.moves.forEach(function(item) {
+        switch (item) {
+            case "r": 
+                setTimeout(function() {
+                    onRedDown();
+                    onRedUp();
+                }, 1000);
+                break;
+            case "b":
+                setTimeout(function() {
+                onBlueDown();
+                onBlueUp();
+                }, 1000);
+                break;
+            case "y":
+                setTimeout(function() {
+                onYellowDown();
+                onYellowUp();
+                }, 1000);
+                break;
+            case "g":
+                setTimeout(function() {
+                onGreenDown();
+                onGreenUp();
+                }, 1000);
+                break;
+        }
+    });
+    console.log(comp.moves);
+    myTurn = true;
 }
 function pushToPlayerArr (color) {
     switch (color) {
@@ -228,15 +277,9 @@ function pushToPlayerArr (color) {
     checkEquality();
 }
 function checkEquality () {
-    if (player.moves.length != comp.moves.length) {
-    checkEquality();
-    } else {
-        let passFail = player.moves.every((el, i) => el === comp.moves[i]);
-        if (passFail === true) {
-            compsTurn();
-        } else if (passFail === false) {
-            alert("game Over!");
-        }
+    if (player.moves.length === comp.moves.length) {
+    player.moves.every((el, i) => el === comp.moves[i]);
+    
     }
 }
 function pushToCompArr (color) {
