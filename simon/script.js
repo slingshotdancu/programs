@@ -100,7 +100,7 @@ function onBlueUp () {
     pushToPlayerArr("b");
     }
     checkEquality();
-    
+
 }
 function onRedDown () {
     redAudio.play();
@@ -234,7 +234,7 @@ function compsTurn () {
     alert("compsTurn ran");
     comp.moves.forEach(function(item) {
         switch (item) {
-            case "r": 
+            case "r":
                 setTimeout(function() {
                     onRedDown();
                     onRedUp();
@@ -264,22 +264,13 @@ function compsTurn () {
     myTurn = true;
 }
 function pushToPlayerArr (color) {
-    switch (color) {
-    case "r": player.moves.push("r");
-    break;
-    case "g": player.moves.push("g");
-    break;
-    case "b": player.moves.push("b");
-    break;
-    case "y": player.moves.push("y");
-    break;
-    }
+    player.moves.push(color);
     checkEquality();
 }
 function checkEquality () {
     if (player.moves.length === comp.moves.length) {
     player.moves.every((el, i) => el === comp.moves[i]);
-    
+
     }
 }
 function pushToCompArr (color) {
