@@ -100,7 +100,7 @@ function onBlueUp () {
     pushToPlayerArr("b");
     }
     checkEquality();
-    
+
 }
 function onRedDown () {
     redAudio.play();
@@ -152,7 +152,7 @@ function onResetButtonDown () {
 
 }
 function onResetButtonUp () {
-turnNumber = 0;
+    turnNumber = 0;
     increaseTurnNumber();
 }
 function increaseTurnNumber () {
@@ -211,89 +211,84 @@ function compsTurn () {
         switch (compNumber) {
         case 1: compColor = "g";
             pushToCompArr(compColor);
-            onGreenDown();
             setTimeout(function() {
-                onGreenUp(); }, 500);
-                break;
+                onGreenDown();
+                onGreenUp(); }, 1000);
+            break;
         case 2: compColor ="r";
             pushToCompArr(compColor);
-            onRedDown();
             setTimeout(function() {
-                onRedUp(); }, 500);
+                onRedDown();
+                onRedUp(); }, 1000);
             break;
         case 3: compColor ="y";
             pushToCompArr(compColor);
-            onYellowDown();
             setTimeout(function() {
-                onYellowUp(); }, 500);
+                onYellowDown();
+                onYellowUp(); }, 1000);
             break;
         case 4: compColor ="b";
             pushToCompArr(compColor);
-            onBlueDown();
             setTimeout(function() {
-                onBlueUp(); }, 500);
+            onBlueDown();
+            onBlueUp(); }, 1000);
             break;
     }
-/*    comp.moves.forEach(function(item) {
+    alert("compsTurn ran");
+    comp.moves.forEach(function(item) {
         switch (item) {
-            case "r": 
+            case "r":
                 setTimeout(function() {
                     onRedDown();
                     onRedUp();
+                    myTurn = true;
                 }, 1000);
                 break;
             case "b":
                 setTimeout(function() {
-                onBlueDown();
-                onBlueUp();
+                    onBlueDown();
+                    onBlueUp();
+                    myTurn = true;
                 }, 1000);
                 break;
             case "y":
                 setTimeout(function() {
-                onYellowDown();
-                onYellowUp();
+                    onYellowDown();
+                    onYellowUp();
+                    myTurn = true;
                 }, 1000);
                 break;
             case "g":
                 setTimeout(function() {
-                onGreenDown();
-                onGreenUp();
+                    onGreenDown();
+                    onGreenUp();
+                    myTurn = true;
                 }, 1000);
                 break;
         }
-    }); 
-*/
-    console.log(comp.moves);
-    myTurn = true;
+    });
 }
 function pushToPlayerArr (color) {
-    switch (color) {
-    case "r": player.moves.push("r");
-    break;
-    case "g": player.moves.push("g");
-    break;
-    case "b": player.moves.push("b");
-    break;
-    case "y": player.moves.push("y");
-    break;
-    }
-    checkEquality();
+    player.moves.push(color);
 }
-function checkEquality () {
-    if (player.moves.length === comp.moves.length) {
-    player.moves.every((el, i) => el === comp.moves[i]);
-    
+
+function checkEquality() {
+  console.log('player.moves:', player.moves);
+  console.log('comp.moves:', comp.moves);
+  if (player.moves.length === comp.moves.length) {
+    if (arraysAreEqual()) {
+      // TODO: make simon play a longer pattern
+    } else {
+      console.log('game over');
     }
+  }
+}
+
+// Returns whether the player array is equal to the computer array.
+// Assumes the two arrays are the same length.
+function arraysAreEqual () {
+  return player.moves.every((el, i) => el === comp.moves[i]);
 }
 function pushToCompArr (color) {
-    switch (color) {
-    case "r": comp.moves.push("r");
-    break;
-    case "g": comp.moves.push("g");
-    break;
-    case "b": comp.moves.push("b");
-    break;
-    case "y": comp.moves.push("y");
-    break;
-    }
+  comp.moves.push(color);
 }
