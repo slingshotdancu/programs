@@ -211,28 +211,30 @@ function compsTurn () {
         switch (compNumber) {
         case 1: compColor = "g";
             pushToCompArr(compColor);
-            break;
+            onGreenDown();
+            setTimeout(function() {
+                onGreenUp(); }, 500);
+                break;
         case 2: compColor ="r";
             pushToCompArr(compColor);
+            onRedDown();
             setTimeout(function() {
-                onRedDown();
-                onRedUp(); }, 1000);
+                onRedUp(); }, 500);
             break;
         case 3: compColor ="y";
             pushToCompArr(compColor);
+            onYellowDown();
             setTimeout(function() {
-                onYellowDown();
-                onYellowUp(); }, 1000);
+                onYellowUp(); }, 500);
             break;
         case 4: compColor ="b";
             pushToCompArr(compColor);
-            setTimeout(function() {
             onBlueDown();
-            onBlueUp(); }, 1000);
+            setTimeout(function() {
+                onBlueUp(); }, 500);
             break;
     }
-    alert("compsTurn ran");
-    comp.moves.forEach(function(item) {
+/*    comp.moves.forEach(function(item) {
         switch (item) {
             case "r": 
                 setTimeout(function() {
@@ -259,7 +261,8 @@ function compsTurn () {
                 }, 1000);
                 break;
         }
-    });
+    }); 
+*/
     console.log(comp.moves);
     myTurn = true;
 }
