@@ -134,7 +134,7 @@ function onStartButtonUp () {
 
 }
 function onStrictModeButtonDown () {
-
+return "hi";
 }
 function onStrictModeButtonUp () {
 
