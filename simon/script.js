@@ -4,10 +4,11 @@ let player = {};
 player.moves = [];
 let comp = {};
 comp.moves = [];
-let counter, turnNumber, compNumber, myTurn;
+let counter, turnNumber, compNumber, playerColor;
 let blueButton, greenButton, redButton, yellowButton;
 let blueAudio, greenAudio, redAudio, yellowAudio;
 let startButton, strictModeButton, resetButton;
+
 
 function preload () {
 game.load.image('background', 'assets/bgLayer.png');
@@ -29,6 +30,18 @@ game.load.image('06', 'assets/num6.png');
 game.load.image('07', 'assets/num7.png');
 game.load.image('08', 'assets/num8.png');
 game.load.image('09', 'assets/num9.png');
+game.load.image('10', 'assets/num10.png');
+game.load.image('11', 'assets/num11.png');
+game.load.image('12', 'assets/num12.png');
+game.load.image('13', 'assets/num13.png');
+game.load.image('14', 'assets/num14.png');
+game.load.image('15', 'assets/num15.png');
+game.load.image('16', 'assets/num16.png');
+game.load.image('17', 'assets/num17.png');
+game.load.image('18', 'assets/num18.png');
+game.load.image('19', 'assets/num19.png');
+game.load.image('20', 'assets/num20.png');
+
 game.load.audio('gsfx', ['audio/green.mp3', 'audio/green.ogg']);
 game.load.audio('rsfx', ['audio/red.mp3', 'audio/red.ogg']);
 game.load.audio('bsfx', ['audio/blue.mp3', 'audio/blue.ogg']);
@@ -54,14 +67,14 @@ greenButton.inputEnabled = true;
 redButton.inputEnabled =  true;
 yellowButton.inputEnabled = true;
 
-blueButton.events.onInputDown.add(onBlueDown, this);
-blueButton.events.onInputUp.add(onBlueUp, this);
-greenButton.events.onInputDown.add(onGreenDown, this);
-greenButton.events.onInputUp.add(onGreenUp, this);
-redButton.events.onInputDown.add(onRedDown, this);
-redButton.events.onInputUp.add(onRedUp, this);
-yellowButton.events.onInputDown.add(onYellowDown, this);
-yellowButton.events.onInputUp.add(onYellowUp, this);
+blueButton.events.onInputDown.add(onBlueDownP, this);
+blueButton.events.onInputUp.add(onBlueUpP, this);
+greenButton.events.onInputDown.add(onGreenDownP, this);
+greenButton.events.onInputUp.add(onGreenUpP, this);
+redButton.events.onInputDown.add(onRedDownP, this);
+redButton.events.onInputUp.add(onRedUpP, this);
+yellowButton.events.onInputDown.add(onYellowDownP, this);
+yellowButton.events.onInputUp.add(onYellowUpP, this);
 
 greenAudio = game.add.audio('gsfx');
 redAudio = game.add.audio('rsfx');
@@ -72,7 +85,6 @@ startButton = game.add.image(385, 500, 'greenCircleButton');
 startButton.anchor.set(0);
 startButton.inputEnabled = true;
 startButton.events.onInputDown.add(onStartButtonDown, this);
-startButton.events.onInputUp.add(onStartButtonUp, this);
 
 strictModeButton = game.add.image(455, 500, 'yellowCircleButton');
 strictModeButton.anchor.set(0);
@@ -90,57 +102,104 @@ resetButton.events.onInputUp.add(onResetButtonUp, this);
 function update () {
 
 }
+
+
 function onBlueDown () {
     blueAudio.play();
     blueButton.alpha = 0.3;
 }
 function onBlueUp () {
+    setTimeout(function() {
     blueButton.alpha = 1;
-    if (myTurn === true) {
-    pushToPlayerArr("b");
-    }
-    checkEquality();
-
+    }, 500);
 }
+
 function onRedDown () {
     redAudio.play();
     redButton.alpha = 0.3;
 }
 function onRedUp () {
+    setTimeout(function() {
     redButton.alpha = 1;
-    if (myTurn === true) {
-    pushToPlayerArr("r");
-    }
-    checkEquality();
+    }, 500);
 }
+
 function onGreenDown () {
     greenAudio.play();
     greenButton.alpha = 0.3;
 }
 function onGreenUp () {
+    setTimeout(function() {
     greenButton.alpha = 1;
-    if (myTurn === true) {
-    pushToPlayerArr("g");
-    }
-    checkEquality();
+    }, 500);
 }
+
 function onYellowDown () {
     yellowAudio.play();
     yellowButton.alpha = 0.3;
 }
 function onYellowUp () {
+    setTimeout(function() {
     yellowButton.alpha = 1;
-    if (myTurn === true) {
-    pushToPlayerArr("y");
-    }
+    }, 500);
+}
+
+
+
+function onBlueDownP () {
+    blueAudio.play();
+    blueButton.alpha = 0.3;
+}
+function onBlueUpP () {
+    blueButton.alpha = 1;
+    playerColor = "b";
+    pushToPlayerArr(playerColor);
     checkEquality();
 }
+
+function onRedDownP () {
+    redAudio.play();
+    redButton.alpha = 0.3;
+}
+function onRedUpP () {
+    redButton.alpha = 1;
+    playerColor = "r";
+    pushToPlayerArr(playerColor);
+    checkEquality();
+}
+
+function onGreenDownP () {
+    greenAudio.play();
+    greenButton.alpha = 0.3;
+}
+function onGreenUpP () {
+    greenButton.alpha = 1;
+    playerColor = "g";
+    pushToPlayerArr(playerColor);
+    checkEquality();
+}
+
+function onYellowDownP () {
+    yellowAudio.play();
+    yellowButton.alpha = 0.3;
+}
+function onYellowUpP () {
+    yellowButton.alpha = 1;
+    playerColor = "y";
+    pushToPlayerArr(playerColor);
+    checkEquality();
+}
+
+
+
+
+
+
+
+
 function onStartButtonDown () {
     turnNumber = 0;
     increaseTurnNumber();
-}
-function onStartButtonUp () {
-
 }
 function onStrictModeButtonDown () {
 return "hi";
@@ -158,46 +217,111 @@ function onResetButtonUp () {
 function increaseTurnNumber () {
 turnNumber = turnNumber + 1;
 switch (turnNumber) {
-    case 0: counter.destroy();
-    counter = game.add.sprite(378, 435, '00');
-    compsTurn();
-    break;
-    case 1: counter.destroy();
-    counter = game.add.sprite(378, 435, '01');
-    compsTurn();
-    break;
-    case 2: counter.destroy();
-    counter = game.add.sprite(378, 435, '02');
-    compsTurn();
-    break;
-    case 3: counter.destroy();
-    counter = game.add.sprite(378, 435, '03');
-    compsTurn();
-    break;
-    case 4: counter.destroy();
-    counter = game.add.sprite(378, 435, '04');
-    compsTurn();
-    break;
-    case 5: counter.destroy();
-    counter = game.add.sprite(378, 435, '05');
-    compsTurn();
-    break;
-    case 6: counter.destroy();
-    counter = game.add.sprite(378, 435, '06');
-    compsTurn();
-    break;
-    case 7: counter.destroy();
-    counter = game.add.sprite(378, 435, '07');
-    compsTurn();
-    break;
-    case 8: counter.destroy();
-    counter = game.add.sprite(378, 435, '08');
-    compsTurn();
-    break;
-    case 9: counter.destroy();
-    counter = game.add.sprite(378, 435, '09');
-    compsTurn();
-    break;
+    case 0:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '00');
+        compsTurn();
+        break;
+    case 1:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '01');
+        compsTurn();
+        break;
+    case 2:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '02');
+        compsTurn();
+        break;
+    case 3:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '03');
+        compsTurn();
+        break;
+    case 4:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '04');
+        compsTurn();
+        break;
+    case 5:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '05');
+        compsTurn();
+        break;
+    case 6:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '06');
+        compsTurn();
+        break;
+    case 7:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '07');
+        compsTurn();
+        break;
+    case 8:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '08');
+        compsTurn();
+        break;
+    case 9:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '09');
+        compsTurn();
+        break;
+    case 10:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '10');
+        compsTurn();
+        break;
+    case 11:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '11');
+        compsTurn();
+        break;
+    case 12:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '12');
+        compsTurn();
+        break;
+    case 13:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '13');
+        compsTurn();
+        break;
+    case 14:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '14');
+        compsTurn();
+        break;
+    case 15:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '15');
+        compsTurn();
+        break;
+    case 16:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '16');
+        compsTurn();
+        break;
+    case 17:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '17');
+        compsTurn();
+        break;
+    case 18:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '18');
+        compsTurn();
+        break;
+    case 19:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '19');
+        compsTurn();
+        break;        
+    case 20:
+        counter.destroy();
+        counter = game.add.sprite(378, 435, '20');
+        compsTurn();
+        break;        
     }
 }
 function getRandomNumber () {
@@ -206,36 +330,34 @@ function getRandomNumber () {
 function compsTurn () {
     //generates a num 1-4 and assigns it to compNum for later identification when pushing elements for the color rep'd by this num
     let compColor;
-    myTurn = false;
     compNumber = getRandomNumber();
         switch (compNumber) {
         case 1: compColor = "g";
             pushToCompArr(compColor);
             setTimeout(function() {
                 onGreenDown();
-                onGreenUp(); }, 1000);
+                onGreenUp(); }, 500);
             break;
         case 2: compColor ="r";
             pushToCompArr(compColor);
             setTimeout(function() {
                 onRedDown();
-                onRedUp(); }, 1000);
+                onRedUp(); }, 500);
             break;
         case 3: compColor ="y";
             pushToCompArr(compColor);
             setTimeout(function() {
                 onYellowDown();
-                onYellowUp(); }, 1000);
+                onYellowUp(); }, 500);
             break;
         case 4: compColor ="b";
             pushToCompArr(compColor);
             setTimeout(function() {
             onBlueDown();
-            onBlueUp(); }, 1000);
+            onBlueUp(); }, 500);
             break;
-    }
-    alert("compsTurn ran");
-    comp.moves.forEach(function(item) {
+    }        
+/*    comp.moves.forEach(function(item) {
         switch (item) {
             case "r":
                 setTimeout(function() {
@@ -266,24 +388,28 @@ function compsTurn () {
                 }, 1000);
                 break;
         }
-    });
-}
+    }); */
+console.log('compsTurn ran \ncomp.moves: ' + comp.moves);
+console.log('player.moves: ' + player.moves);
+} 
 function pushToPlayerArr (color) {
     player.moves.push(color);
 }
-
 function checkEquality() {
-  console.log('player.moves:', player.moves);
-  console.log('comp.moves:', comp.moves);
+  console.log('player.moves: ' + player.moves);
+  console.log('comp.moves: ' + comp.moves);
   if (player.moves.length === comp.moves.length) {
     if (arraysAreEqual()) {
+        alert("simon moves plus one");
+        clearPlayerArr();
+        playMemory();
+        increaseTurnNumber();
       // TODO: make simon play a longer pattern
     } else {
       console.log('game over');
     }
   }
 }
-
 // Returns whether the player array is equal to the computer array.
 // Assumes the two arrays are the same length.
 function arraysAreEqual () {
@@ -291,4 +417,34 @@ function arraysAreEqual () {
 }
 function pushToCompArr (color) {
   comp.moves.push(color);
+}
+function playMemory() {
+//array.forEach(function(currentValue, index, arr), thisValue)
+comp.moves.forEach(playNotesBack);
+}
+function clearPlayerArr() {
+    while (player.moves.length > 0) {
+        player.moves.pop();
+    }
+}
+function playNotesBack (item, index, arr) {
+        switch (arr[index]) {
+            case "r":
+                onRedDown();
+                onRedUp();
+                break;
+            case "b":
+                onBlueDown();
+                onBlueUp();
+                break;
+            case "y":
+                onYellowDown();
+                onYellowUp();
+                break;
+            case "g":
+                onGreenDown();
+                onGreenUp();
+                break;
+    }
+
 }
