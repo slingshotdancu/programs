@@ -324,34 +324,35 @@ function compsTurn () {
     
     //generates a num 1-4 and assigns it to compNum for later identification when pushing elements for the color rep'd by this num
     let timeoutMS = (function () {
-         return player.turnNumber + (player.turnNumber * 500);
+         return player.turnNumber * 500;
     })();
     let compColor;
     compNumber = getRandomNumber();
+    console.log(timeoutMS);
         switch (compNumber) {
-        case 1: compColor = "g";
-            timeoutMS = player.turnNumber * 500;
+        case 1: compColor = "g";    
+            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onGreenDown();
             onGreenUp(); }, timeoutMS);
             break;
         case 2: compColor ="r";
-            timeoutMS = player.turnNumber * 500;
+            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onRedDown();
             onRedUp(); }, timeoutMS);
             break;
         case 3: compColor ="y";
-            timeoutMS = player.turnNumber * 500;
+            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onYellowDown();
             onYellowUp(); }, timeoutMS);
             break;
         case 4: compColor ="b";
-            timeoutMS = player.turnNumber * 500;
+            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onBlueDown();
@@ -439,28 +440,28 @@ function playNotesBack (item, index, arr) {
     })();
     switch (arr[index]) {
             case "r":
-                timeoutMS = player.turnNumber * 500;
-                setTimeout(function() {
+            console.log("playNotesBack: " + timeoutMS);
+            setTimeout(function() {
                 onRedDown();
-                onRedUp(); }, timeoutMS);
+                onRedUp(); }, index*500);
                 break;
             case "b":
-                timeoutMS = player.turnNumber * 500;
+                console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onBlueDown();
-                onBlueUp(); }, timeoutMS);
+                onBlueUp(); }, index*500);
                 break;
             case "y":
-                timeoutMS = player.turnNumber * 500;
+                console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onYellowDown();
-                onYellowUp(); }, timeoutMS);
+                onYellowUp(); }, index*500);
                 break;
             case "g":
-                timeoutMS = player.turnNumber * 500;
+                console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onGreenDown();
-                onGreenUp(); }, timeoutMS);
+                onGreenUp(); }, index*500);
                 break;
     }
 
