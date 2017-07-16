@@ -4,11 +4,10 @@ let player = {};
 player.moves = [];
 let comp = {};
 comp.moves = [];
-let counter, turnNumber, compNumber, playerColor;
+let counter, compNumber, playerColor;
 let blueButton, greenButton, redButton, yellowButton;
 let blueAudio, greenAudio, redAudio, yellowAudio;
 let startButton, strictModeButton, resetButton;
-
 
 function preload () {
 game.load.image('background', 'assets/bgLayer.png');
@@ -103,7 +102,6 @@ function update () {
 
 }
 
-
 function onBlueDown () {
     blueAudio.play();
     blueButton.alpha = 0.3;
@@ -143,8 +141,6 @@ function onYellowUp () {
     yellowButton.alpha = 1;
     }, 500);
 }
-
-
 
 function onBlueDownP () {
     blueAudio.play();
@@ -190,15 +186,8 @@ function onYellowUpP () {
     checkEquality();
 }
 
-
-
-
-
-
-
-
 function onStartButtonDown () {
-    turnNumber = 0;
+    player.turnNumber = 0;
     increaseTurnNumber();
 }
 function onStrictModeButtonDown () {
@@ -211,12 +200,14 @@ function onResetButtonDown () {
 
 }
 function onResetButtonUp () {
-    turnNumber = 0;
+    player.turnNumber = 0;
     increaseTurnNumber();
 }
 function increaseTurnNumber () {
-turnNumber = turnNumber + 1;
-switch (turnNumber) {
+
+    player.turnNumber += 1;
+
+    switch (player.turnNumber) {
     case 0:
         counter.destroy();
         counter = game.add.sprite(378, 435, '00');
@@ -322,39 +313,49 @@ switch (turnNumber) {
         counter = game.add.sprite(378, 435, '20');
         compsTurn();
         break;        
+
+
     }
 }
 function getRandomNumber () {
     return Math.floor((Math.random() * 4) + 1);
 }
 function compsTurn () {
+    
     //generates a num 1-4 and assigns it to compNum for later identification when pushing elements for the color rep'd by this num
+    let timeoutMS = (function () {
+         return player.turnNumber + (player.turnNumber * 500);
+    })();
     let compColor;
     compNumber = getRandomNumber();
         switch (compNumber) {
         case 1: compColor = "g";
+            timeoutMS = player.turnNumber * 500;
             pushToCompArr(compColor);
             setTimeout(function() {
-                onGreenDown();
-                onGreenUp(); }, 500);
+            onGreenDown();
+            onGreenUp(); }, timeoutMS);
             break;
         case 2: compColor ="r";
+            timeoutMS = player.turnNumber * 500;
             pushToCompArr(compColor);
             setTimeout(function() {
-                onRedDown();
-                onRedUp(); }, 500);
+            onRedDown();
+            onRedUp(); }, timeoutMS);
             break;
         case 3: compColor ="y";
+            timeoutMS = player.turnNumber * 500;
             pushToCompArr(compColor);
             setTimeout(function() {
-                onYellowDown();
-                onYellowUp(); }, 500);
+            onYellowDown();
+            onYellowUp(); }, timeoutMS);
             break;
         case 4: compColor ="b";
+            timeoutMS = player.turnNumber * 500;
             pushToCompArr(compColor);
             setTimeout(function() {
             onBlueDown();
-            onBlueUp(); }, 500);
+            onBlueUp(); }, timeoutMS);
             break;
     }        
 /*    comp.moves.forEach(function(item) {
@@ -389,6 +390,7 @@ function compsTurn () {
                 break;
         }
     }); */
+    
 console.log('compsTurn ran \ncomp.moves: ' + comp.moves);
 console.log('player.moves: ' + player.moves);
 } 
@@ -419,7 +421,6 @@ function pushToCompArr (color) {
   comp.moves.push(color);
 }
 function playMemory() {
-//array.forEach(function(currentValue, index, arr), thisValue)
 comp.moves.forEach(playNotesBack);
 }
 function clearPlayerArr() {
@@ -427,23 +428,39 @@ function clearPlayerArr() {
         player.moves.pop();
     }
 }
+function clearCompArr() {
+    while (comp.moves.length > 0) {
+        comp.moves.pop();
+    }
+}
 function playNotesBack (item, index, arr) {
-        switch (arr[index]) {
+    let timeoutMS = (function () {
+         return player.turnNumber * 500;
+    })();
+    switch (arr[index]) {
             case "r":
+                timeoutMS = player.turnNumber * 500;
+                setTimeout(function() {
                 onRedDown();
-                onRedUp();
+                onRedUp(); }, timeoutMS);
                 break;
             case "b":
+                timeoutMS = player.turnNumber * 500;
+                setTimeout(function() {
                 onBlueDown();
-                onBlueUp();
+                onBlueUp(); }, timeoutMS);
                 break;
             case "y":
+                timeoutMS = player.turnNumber * 500;
+                setTimeout(function() {
                 onYellowDown();
-                onYellowUp();
+                onYellowUp(); }, timeoutMS);
                 break;
             case "g":
+                timeoutMS = player.turnNumber * 500;
+                setTimeout(function() {
                 onGreenDown();
-                onGreenUp();
+                onGreenUp(); }, timeoutMS);
                 break;
     }
 
