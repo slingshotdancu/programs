@@ -19,6 +19,7 @@ game.load.image('yellowButton', 'assets/yellowLayer.png');
 game.load.image('yellowCircleButton', 'assets/leftButton.png');
 game.load.image('greenCircleButton', 'assets/centerGreenButton.png');
 game.load.image('redCircleButton', 'assets/centerRedButton.png');
+game.load.image('x', 'assets/x.png');
 game.load.image('00', 'assets/num0.png');
 game.load.image('01', 'assets/num1.png');
 game.load.image('02', 'assets/num2.png');
@@ -191,13 +192,20 @@ function onStartButtonDown () {
     increaseTurnNumber();
 }
 function onStrictModeButtonDown () {
-return "hi";
+if(player.strictMode === "on"){
+    alert("Strict Mode is off");
+    player.strictMode = "off";
+} else {
+    player.strictMode = "on";
+alert("Strict Mode is on");
+}
 }
 function onStrictModeButtonUp () {
 
 }
 function onResetButtonDown () {
-
+    clearCompArr();
+    clearPlayerArr();
 }
 function onResetButtonUp () {
     player.turnNumber = 0;
@@ -331,28 +339,24 @@ function compsTurn () {
     console.log(timeoutMS);
         switch (compNumber) {
         case 1: compColor = "g";    
-            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onGreenDown();
             onGreenUp(); }, timeoutMS);
             break;
         case 2: compColor ="r";
-            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onRedDown();
             onRedUp(); }, timeoutMS);
             break;
         case 3: compColor ="y";
-            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onYellowDown();
             onYellowUp(); }, timeoutMS);
             break;
         case 4: compColor ="b";
-            console.log("playNotesBack: " + timeoutMS);
             pushToCompArr(compColor);
             setTimeout(function() {
             onBlueDown();
@@ -403,12 +407,13 @@ function checkEquality() {
   console.log('comp.moves: ' + comp.moves);
   if (player.moves.length === comp.moves.length) {
     if (arraysAreEqual()) {
-        alert("simon moves plus one");
         clearPlayerArr();
         playMemory();
         increaseTurnNumber();
-      // TODO: make simon play a longer pattern
     } else {
+        counter.destroy();
+        counter = game.add.sprite(378, 435, 'x');
+        playMemory();
       console.log('game over');
     }
   }
