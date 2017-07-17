@@ -6,7 +6,7 @@ let comp = {};
 comp.moves = [];
 let counter, compNumber, playerColor;
 let blueButton, greenButton, redButton, yellowButton;
-let blueAudio, greenAudio, redAudio, yellowAudio;
+let blueAudio, greenAudio, redAudio, yellowAudio, wrongAudio;
 let startButton, strictModeButton, resetButton;
 
 function preload () {
@@ -41,7 +41,7 @@ game.load.image('17', 'assets/num17.png');
 game.load.image('18', 'assets/num18.png');
 game.load.image('19', 'assets/num19.png');
 game.load.image('20', 'assets/num20.png');
-
+game.load.audio('wrongsfx', ['audio/wrong.mp3', 'audio/wrong.ogg']);
 game.load.audio('gsfx', ['audio/green.mp3', 'audio/green.ogg']);
 game.load.audio('rsfx', ['audio/red.mp3', 'audio/red.ogg']);
 game.load.audio('bsfx', ['audio/blue.mp3', 'audio/blue.ogg']);
@@ -80,6 +80,7 @@ greenAudio = game.add.audio('gsfx');
 redAudio = game.add.audio('rsfx');
 blueAudio = game.add.audio('bsfx');
 yellowAudio = game.add.audio('ysfx');
+wrongAudio = game.add.audio('wrongsfx');
 
 startButton = game.add.image(385, 500, 'greenCircleButton');
 startButton.anchor.set(0);
@@ -104,6 +105,7 @@ function update () {
 }
 
 function onBlueDown () {
+    console.log("blueaudio played");
     blueAudio.play();
     blueButton.alpha = 0.3;
 }
@@ -124,6 +126,7 @@ function onRedUp () {
 }
 
 function onGreenDown () {
+    console.log("greenaudioplayed");
     greenAudio.play();
     greenButton.alpha = 0.3;
 }
@@ -134,6 +137,7 @@ function onGreenUp () {
 }
 
 function onYellowDown () {
+    console.log("yellowaudio played");
     yellowAudio.play();
     yellowButton.alpha = 0.3;
 }
@@ -144,6 +148,7 @@ function onYellowUp () {
 }
 
 function onBlueDownP () {
+    console.log("blueaudio played");
     blueAudio.play();
     blueButton.alpha = 0.3;
 }
@@ -155,6 +160,7 @@ function onBlueUpP () {
 }
 
 function onRedDownP () {
+    console.log("redaudio played");
     redAudio.play();
     redButton.alpha = 0.3;
 }
@@ -166,6 +172,7 @@ function onRedUpP () {
 }
 
 function onGreenDownP () {
+    console.log("greenaudio played");
     greenAudio.play();
     greenButton.alpha = 0.3;
 }
@@ -177,6 +184,7 @@ function onGreenUpP () {
 }
 
 function onYellowDownP () {
+    console.log("yellowaudio played");
     yellowAudio.play();
     yellowButton.alpha = 0.3;
 }
@@ -408,12 +416,15 @@ function checkEquality() {
   if (player.moves.length === comp.moves.length) {
     if (arraysAreEqual()) {
         clearPlayerArr();
-        playMemory();
+        setTimeout(playMemory, 600);
         increaseTurnNumber();
     } else {
+        console.log("wrong audio played");
+        wrongAudio.play();
         counter.destroy();
         counter = game.add.sprite(378, 435, 'x');
-        playMemory();
+        clearPlayerArr();
+        setTimeout(playMemory, 600);
       console.log('game over');
     }
   }
