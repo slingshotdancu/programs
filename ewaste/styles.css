@@ -1,0 +1,167 @@
+body {
+     background-color: white;
+     -moz-text-size-adjust: inherit; 
+     -webkit-text-size-adjust: inherit;
+     -ms-text-size-adjust: inherit;
+     }
+p {
+    font-weight: 900;
+    font-size: 150%;
+    width: 60%;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 3em;
+}
+h1  {
+    font-family: 'Nunito Sans', sans-serif;    
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: .25%;
+    padding-left: 0;
+    padding-right: 0;
+    width: 60%;
+    height: 1em;
+    font-size: 400%;
+    font-weight: 300;
+    text-align: center;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+
+h1:hover {
+    -webkit-transition-duration: 0.4s; transition-duration: 0.4s;
+    text-align: center; 
+    object-position: center;
+    background-color: black; 
+    color: whitesmoke;
+    position: relative;
+    width: 100%;
+    }
+
+.resume {
+    object-position: center;    
+    text-align: center;
+    align-items: center;
+    position: relative;
+}
+
+#dropdown {
+    font-family: 'Nunito Sans', sans-serif;    
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0;
+    padding-bottom: .25%;
+    padding-left: 0;
+    padding-right: 0;
+    width: 60%;
+    height: 1em;
+    font-size: 100%;
+    font-weight: 300;
+    text-align: center;
+    position: relative;
+    border: 2px solid black;
+    border-radius: 4px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);}
+
+h2:hover, #dropdown:hover{
+    font-family: 'Nunito Sans', sans-serif;    
+    text-align: center; 
+    object-position: center;
+    background-color: white; color: whitesmoke;
+    position: relative;
+    width: 50%;
+    height: .5em;
+    font-size: 100%;
+    font-weight: 300;
+    text-align: center;
+    position: relative;
+ 
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    
+}
+h2 {
+    font-family: 'Nunito Sans', sans-serif;
+    text-align: center;
+    margin-bottom: 0;
+    margin-top: 0;
+    }
+
+.vids {
+object-position: center;
+align-items: center;
+text-align: center;
+width: 45%;
+}
+
+.navigation  {
+    margin-top: 3em;
+    margin-bottom: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 0;
+    width: 100%; 
+    font-weight: 500;
+    background-color: #f2f2f2;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    object-position: center;
+    text-align: center;
+
+    line-height: 4em;
+    }
+
+#home, #songs, #vids, #about, #contact, #current {    
+    -webkit-transition-duration: 0.4s; transition-duration: 0.4s;    
+    margin: auto;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: .75%;
+    padding-bottom: .75%;
+    text-align: center;
+    line-height: 0.6em;
+    background-color: #f2f2f2; color: black;
+    border: 2px solid black; border-radius: 4px;
+    width: 15%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 3px 10px 0 rgba(0,0,0,0.19);
+    font-size: 1.1em;
+    font-weight: 800; 
+    }
+
+#home:hover, #songs:hover, #vids:hover, #about:hover, #contact:hover, #current {
+    background-color: white;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    
+}
+
+
+
+a:link, a:visited {
+ text-decoration: none;
+ color: mediumblue;
+} 
+
+a:active {
+    text-decoration: none;
+    color: black;
+    }
+
+a   {
+    align-items: center;
+    height: 100%;
+    }
+
+.deadline, .intendingOn, .sweetheartMyEnemy , .regretsAWaste, .thinkingBack, .neverGivingUp, .simplify, .breakDownHearts, .intro, .followingYou, .sheSaidToMe, .iveNever, .didYouCare, .standby, .autograph, .soTonight, .holdMeBack, .aDifferentStory, .theSameOldQuestion, .somethingToDo, .walkedAway {
+    align-items: center; position: center; text-align: center;
+    object-position: center; align-content: center;
+
+#disclaimer {
+font-size: 5em;
+}
+    }

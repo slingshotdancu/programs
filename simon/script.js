@@ -10,6 +10,8 @@ let blueAudio, greenAudio, redAudio, yellowAudio, wrongAudio;
 let startButton, strictModeButton, resetButton;
 
 function preload () {
+    
+game.load.image('bgtile', 'assets/bgtile.jpg');
 game.load.image('background', 'assets/bgLayer.png');
 game.load.image('greyLayer', 'assets/Layer-2.png');
 game.load.image('redButton', 'assets/redLayer.png');
@@ -41,16 +43,21 @@ game.load.image('17', 'assets/num17.png');
 game.load.image('18', 'assets/num18.png');
 game.load.image('19', 'assets/num19.png');
 game.load.image('20', 'assets/num20.png');
+    
 game.load.audio('wrongsfx', ['audio/wrong.mp3', 'audio/wrong.ogg']);
 game.load.audio('gsfx', ['audio/green.mp3', 'audio/green.ogg']);
 game.load.audio('rsfx', ['audio/red.mp3', 'audio/red.ogg']);
 game.load.audio('bsfx', ['audio/blue.mp3', 'audio/blue.ogg']);
 game.load.audio('ysfx', ['audio/yellow.mp3', 'audio/yellow.ogg']);
-//add buzzer sound?
 }
 function create () {
+game.scale.pageAlignHorizontally = true;
+game.scale.pageAlignVertically = true;
+game.scale.refresh();
+
+game.add.tileSprite(0, 0, 800, 800, 'bgtile');
 game.add.tileSprite(0, 0, 800, 800, 'background');
-game.add.image(257, 258, 'greyLayer');
+//game.add.image(257, 258, 'greyLayer');
 counter = game.add.image(378, 435, '00');
 blueButton = game.add.image(412, 412, 'blueButton');
 greenButton = game.add.image(28, 31, 'greenButton');
@@ -219,10 +226,10 @@ function onResetButtonUp () {
     player.turnNumber = 0;
     increaseTurnNumber();
 }
+
 function increaseTurnNumber () {
 
     player.turnNumber += 1;
-
     switch (player.turnNumber) {
     case 0:
         counter.destroy();
@@ -329,15 +336,14 @@ function increaseTurnNumber () {
         counter = game.add.sprite(378, 435, '20');
         compsTurn();
         break;        
-
-
     }
 }
+
 function getRandomNumber () {
     return Math.floor((Math.random() * 4) + 1);
 }
+
 function compsTurn () {
-    
     //generates a num 1-4 and assigns it to compNum for later identification when pushing elements for the color rep'd by this num
     let timeoutMS = (function () {
          return player.turnNumber * 500;
@@ -370,41 +376,9 @@ function compsTurn () {
             onBlueDown();
             onBlueUp(); }, timeoutMS);
             break;
-    }        
-/*    comp.moves.forEach(function(item) {
-        switch (item) {
-            case "r":
-                setTimeout(function() {
-                    onRedDown();
-                    onRedUp();
-                    myTurn = true;
-                }, 1000);
-                break;
-            case "b":
-                setTimeout(function() {
-                    onBlueDown();
-                    onBlueUp();
-                    myTurn = true;
-                }, 1000);
-                break;
-            case "y":
-                setTimeout(function() {
-                    onYellowDown();
-                    onYellowUp();
-                    myTurn = true;
-                }, 1000);
-                break;
-            case "g":
-                setTimeout(function() {
-                    onGreenDown();
-                    onGreenUp();
-                    myTurn = true;
-                }, 1000);
-                break;
-        }
-    }); */
-    
-console.log('compsTurn ran \ncomp.moves: ' + comp.moves);
+    }
+
+    console.log('compsTurn ran \ncomp.moves: ' + comp.moves);
 console.log('player.moves: ' + player.moves);
 } 
 function pushToPlayerArr (color) {
