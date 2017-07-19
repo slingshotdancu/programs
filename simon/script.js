@@ -57,8 +57,10 @@ game.scale.refresh();
 
 game.add.tileSprite(0, 0, 800, 800, 'bgtile');
 game.add.tileSprite(0, 0, 800, 800, 'background');
-//game.add.image(257, 258, 'greyLayer');
+game.add.image(257, 258, 'greyLayer');
+
 counter = game.add.image(378, 435, '00');
+    
 blueButton = game.add.image(412, 412, 'blueButton');
 greenButton = game.add.image(28, 31, 'greenButton');
 redButton = game.add.image(412, 31, 'redButton');
@@ -227,6 +229,7 @@ function onResetButtonUp () {
     increaseTurnNumber();
 }
 
+//checks the turn number and increases turnNumber/corresponding image
 function increaseTurnNumber () {
 
     player.turnNumber += 1;
@@ -338,13 +341,12 @@ function increaseTurnNumber () {
         break;        
     }
 }
-
+//generates random number 1-4
 function getRandomNumber () {
     return Math.floor((Math.random() * 4) + 1);
 }
-
+//assigns random number to color and pushes it to compArr
 function compsTurn () {
-    //generates a num 1-4 and assigns it to compNum for later identification when pushing elements for the color rep'd by this num
     let timeoutMS = (function () {
          return player.turnNumber * 500;
     })();
@@ -379,7 +381,7 @@ function compsTurn () {
     }
 
     console.log('compsTurn ran \ncomp.moves: ' + comp.moves);
-console.log('player.moves: ' + player.moves);
+    console.log('player.moves: ' + player.moves);
 } 
 function pushToPlayerArr (color) {
     player.moves.push(color);
@@ -392,7 +394,10 @@ function checkEquality() {
         clearPlayerArr();
         setTimeout(playMemory, 600);
         increaseTurnNumber();
-    } else {
+    }
+  } else if (player.moves.length !== comp.moves.length) {
+        let lenMinusOne = (function () { return player.moves.length - 1;})();
+        if (player.moves[lenMinusOne] !== comp.moves[lenMinusOne]) {
         console.log("wrong audio played");
         wrongAudio.play();
         counter.destroy();
@@ -403,6 +408,7 @@ function checkEquality() {
     }
   }
 }
+
 // Returns whether the player array is equal to the computer array.
 // Assumes the two arrays are the same length.
 function arraysAreEqual () {
@@ -430,29 +436,34 @@ function playNotesBack (item, index, arr) {
     })();
     switch (arr[index]) {
             case "r":
+            if(index === comp.moves.length - 1) { break; } else {
             console.log("playNotesBack: " + timeoutMS);
             setTimeout(function() {
                 onRedDown();
-                onRedUp(); }, index*500);
-                break;
+                onRedUp(); }, index*500);  
+            } break;
             case "b":
+            if(index === comp.moves.length - 1) { break; } else {
                 console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onBlueDown();
                 onBlueUp(); }, index*500);
-                break;
+            } break;
             case "y":
+            if(index === comp.moves.length - 1) { break; } else {
                 console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onYellowDown();
                 onYellowUp(); }, index*500);
-                break;
+              }   break;
             case "g":
+            if(index === comp.moves.length - 1) { break; } else {
                 console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onGreenDown();
                 onGreenUp(); }, index*500);
-                break;
-    }
+            }   break;
+            
+            }
 
 }
