@@ -13,11 +13,11 @@ function preload () {
     
 game.load.image('bgtile', 'assets/bgtile.jpg');
 game.load.image('background', 'assets/bgLayer.png');
-game.load.image('greyLayer', 'assets/Layer-2.png');
-game.load.image('redButton', 'assets/redLayer.png');
-game.load.image('blueButton', 'assets/blueLayer.png');
-game.load.image('greenButton', 'assets/greenLayer.png');
-game.load.image('yellowButton', 'assets/yellowLayer.png');
+game.load.image('greyLayer', 'assets/Layer-22.png');
+game.load.image('redButton', 'assets/redLayer2.png');
+game.load.image('blueButton', 'assets/blueLayer2.png');
+game.load.image('greenButton', 'assets/greenLayer2.png');
+game.load.image('yellowButton', 'assets/yellowLayer2.png');
 game.load.image('yellowCircleButton', 'assets/leftButton.png');
 game.load.image('greenCircleButton', 'assets/centerGreenButton.png');
 game.load.image('redCircleButton', 'assets/centerRedButton.png');
