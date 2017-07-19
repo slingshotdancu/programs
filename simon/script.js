@@ -76,13 +76,13 @@ greenButton.inputEnabled = true;
 redButton.inputEnabled =  true;
 yellowButton.inputEnabled = true;
 
-blueButton.events.onInputDown.add(onBlueDownP, this);
+blueButton.events.onInputDown.add(onBlueDown, this);
 blueButton.events.onInputUp.add(onBlueUpP, this);
-greenButton.events.onInputDown.add(onGreenDownP, this);
+greenButton.events.onInputDown.add(onGreenDown, this);
 greenButton.events.onInputUp.add(onGreenUpP, this);
-redButton.events.onInputDown.add(onRedDownP, this);
+redButton.events.onInputDown.add(onRedDown, this);
 redButton.events.onInputUp.add(onRedUpP, this);
-yellowButton.events.onInputDown.add(onYellowDownP, this);
+yellowButton.events.onInputDown.add(onYellowDown, this);
 yellowButton.events.onInputUp.add(onYellowUpP, this);
 
 greenAudio = game.add.audio('gsfx');
@@ -114,14 +114,13 @@ function update () {
 }
 
 function onBlueDown () {
-    console.log("blueaudio played");
     blueAudio.play();
     blueButton.alpha = 0.3;
 }
 function onBlueUp () {
     setTimeout(function() {
     blueButton.alpha = 1;
-    }, 500);
+    }, 250);
 }
 
 function onRedDown () {
@@ -131,36 +130,29 @@ function onRedDown () {
 function onRedUp () {
     setTimeout(function() {
     redButton.alpha = 1;
-    }, 500);
+    }, 250);
 }
 
 function onGreenDown () {
-    console.log("greenaudioplayed");
     greenAudio.play();
     greenButton.alpha = 0.3;
 }
 function onGreenUp () {
     setTimeout(function() {
     greenButton.alpha = 1;
-    }, 500);
+    }, 250);
 }
 
 function onYellowDown () {
-    console.log("yellowaudio played");
     yellowAudio.play();
     yellowButton.alpha = 0.3;
 }
 function onYellowUp () {
     setTimeout(function() {
     yellowButton.alpha = 1;
-    }, 500);
+    }, 250);
 }
 
-function onBlueDownP () {
-    console.log("blueaudio played");
-    blueAudio.play();
-    blueButton.alpha = 0.3;
-}
 function onBlueUpP () {
     blueButton.alpha = 1;
     playerColor = "b";
@@ -168,11 +160,6 @@ function onBlueUpP () {
     checkEquality();
 }
 
-function onRedDownP () {
-    console.log("redaudio played");
-    redAudio.play();
-    redButton.alpha = 0.3;
-}
 function onRedUpP () {
     redButton.alpha = 1;
     playerColor = "r";
@@ -180,11 +167,6 @@ function onRedUpP () {
     checkEquality();
 }
 
-function onGreenDownP () {
-    console.log("greenaudio played");
-    greenAudio.play();
-    greenButton.alpha = 0.3;
-}
 function onGreenUpP () {
     greenButton.alpha = 1;
     playerColor = "g";
@@ -192,11 +174,6 @@ function onGreenUpP () {
     checkEquality();
 }
 
-function onYellowDownP () {
-    console.log("yellowaudio played");
-    yellowAudio.play();
-    yellowButton.alpha = 0.3;
-}
 function onYellowUpP () {
     yellowButton.alpha = 1;
     playerColor = "y";
@@ -205,10 +182,12 @@ function onYellowUpP () {
 }
 
 function onStartButtonDown () {
+    console.log("onstartbuttondown ran");
     player.turnNumber = 0;
     increaseTurnNumber();
 }
 function onStrictModeButtonDown () {
+    console.log("onstrictmodebuttondown ran");
 if(player.strictMode === "on"){
     alert("Strict Mode is off");
     player.strictMode = "off";
@@ -221,17 +200,19 @@ function onStrictModeButtonUp () {
 
 }
 function onResetButtonDown () {
+    console.log("onResetButtonDown");
     clearCompArr();
     clearPlayerArr();
 }
 function onResetButtonUp () {
+    console.log("onresetbuttonup ran");
     player.turnNumber = 0;
     increaseTurnNumber();
 }
 
 //checks the turn number and increases turnNumber/corresponding image
 function increaseTurnNumber () {
-
+console.log("increaseturnnumber ran");
     player.turnNumber += 1;
     switch (player.turnNumber) {
     case 0:
@@ -343,13 +324,15 @@ function increaseTurnNumber () {
 }
 //generates random number 1-4
 function getRandomNumber () {
+    console.log("getRandomNumber ran");
     return Math.floor((Math.random() * 4) + 1);
 }
 //assigns random number to color and pushes it to compArr
 function compsTurn () {
+    console.log("compsTurn ran");
     let timeoutMS = (function () {
          return player.turnNumber * 500;
-    })();
+    }());
     let compColor;
     compNumber = getRandomNumber();
     console.log(timeoutMS);
@@ -380,90 +363,125 @@ function compsTurn () {
             break;
     }
 
-    console.log('compsTurn ran \ncomp.moves: ' + comp.moves);
+    console.log('comp.moves: ' + comp.moves);
     console.log('player.moves: ' + player.moves);
 } 
 function pushToPlayerArr (color) {
+    console.log("pushtoplayerarr ran");
     player.moves.push(color);
 }
 function checkEquality() {
+    console.log("checkequality ran");
   console.log('player.moves: ' + player.moves);
   console.log('comp.moves: ' + comp.moves);
   if (player.moves.length === comp.moves.length) {
     if (arraysAreEqual()) {
         clearPlayerArr();
-        setTimeout(playMemory, 600);
+        setTimeout(playMemory, 500);
         increaseTurnNumber();
     }
   } else if (player.moves.length !== comp.moves.length) {
-        let lenMinusOne = (function () { return player.moves.length - 1;})();
+        let lenMinusOne = (function () { return player.moves.length - 1; }());
         if (player.moves[lenMinusOne] !== comp.moves[lenMinusOne]) {
         console.log("wrong audio played");
         wrongAudio.play();
         counter.destroy();
         counter = game.add.sprite(378, 435, 'x');
+            if(player.strictMode === "on") {
+                setTimeout(function() { onResetButtonDown();
+                onResetButtonUp();
+            }, 1000); 
+            } else {
         clearPlayerArr();
-        setTimeout(playMemory, 600);
+        setTimeout(playMemory, 500);
       console.log('game over');
     }
   }
 }
-
+}
 // Returns whether the player array is equal to the computer array.
 // Assumes the two arrays are the same length.
 function arraysAreEqual () {
+    console.log("arraysarequal ran");
   return player.moves.every((el, i) => el === comp.moves[i]);
 }
 function pushToCompArr (color) {
+    console.log("pushtocomparr ran");
   comp.moves.push(color);
 }
 function playMemory() {
-comp.moves.forEach(playNotesBack);
+    console.log("playmemory ran");
+    comp.moves.forEach(function(item, index, arr) {
+    switch (comp.moves[index]) {
+        case "g": setTimeout(function() {
+            onGreenDown();
+            onGreenUp();
+        }, index*500);
+            break;
+        case "y": setTimeout(function() {
+            onYellowDown();
+            onYellowUp();
+        }, index*500);
+            break;
+        case "r": setTimeout(function() {
+            onRedDown();
+            onRedUp();
+        }, index*500);
+            break;
+        case "b": setTimeout(function() {
+            onBlueDown();
+            onBlueUp();
+        }, index*500);
+            break;
+    }    
+    });
 }
+
 function clearPlayerArr() {
+    console.log("clearplayerarr ran");
     while (player.moves.length > 0) {
         player.moves.pop();
     }
 }
 function clearCompArr() {
+    console.log("clearcomparr ran");
     while (comp.moves.length > 0) {
         comp.moves.pop();
     }
 }
 function playNotesBack (item, index, arr) {
+    console.log("playnotesback ran");
     let timeoutMS = (function () {
          return player.turnNumber * 500;
-    })();
+    }());
     switch (arr[index]) {
             case "r":
-            if(index === comp.moves.length - 1) { break; } else {
-            console.log("playNotesBack: " + timeoutMS);
-            setTimeout(function() {
+            if (index === comp.moves.length) { break; } else {
+                console.log("playNotesBack: " + timeoutMS);
+                setTimeout(function() {
                 onRedDown();
                 onRedUp(); }, index*500);  
             } break;
             case "b":
-            if(index === comp.moves.length - 1) { break; } else {
+            if (index === comp.moves.length) { break; } else {
                 console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onBlueDown();
                 onBlueUp(); }, index*500);
             } break;
             case "y":
-            if(index === comp.moves.length - 1) { break; } else {
+            if (index === comp.moves.length) { break; } else {
                 console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onYellowDown();
                 onYellowUp(); }, index*500);
-              }   break;
+            } break;
             case "g":
-            if(index === comp.moves.length - 1) { break; } else {
+            if (index === comp.moves.length) { break; } else {
                 console.log("playNotesBack: " + timeoutMS);
                 setTimeout(function() {
                 onGreenDown();
                 onGreenUp(); }, index*500);
-            }   break;
-            
+            } break;
             }
-
 }
